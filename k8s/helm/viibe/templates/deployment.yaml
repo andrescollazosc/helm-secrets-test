@@ -46,6 +46,11 @@ spec:
                 name: my-secrets
                 key: password_db
 
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "echo 'PASSWORD: $MY_PASSWORD' && echo 'PASSWORD_DB: $MY_PASSWORD_DB'"]
+
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
