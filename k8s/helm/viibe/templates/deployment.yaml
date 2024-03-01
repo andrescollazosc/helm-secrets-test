@@ -5,10 +5,6 @@ metadata:
   labels:
     {{- include "viibe.labels" . | nindent 4 }}
 spec:
-  initContainers:
-    - name: decrypt-secrets
-      image: alpine:latest
-      command: ["sh", "-c", sops -d ../values-secrets-enc.yaml] 
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
@@ -24,6 +20,10 @@ spec:
       labels:
         {{- include "viibe.selectorLabels" . | nindent 8 }}
     spec:
+      initContainers:
+        - name: decrypt-secrets
+        image: alpine:latest
+        command: ["sh", "-c", sops -d ../values-secrets-enc.yaml] 
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
