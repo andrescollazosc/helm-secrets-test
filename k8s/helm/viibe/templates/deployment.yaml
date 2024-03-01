@@ -20,10 +20,6 @@ spec:
       labels:
         {{- include "viibe.selectorLabels" . | nindent 8 }}
     spec:
-      initContainers:
-        - name: decrypt-secrets
-        image: alpine:latest
-        command: ["sh", "-c", sops -d ../values-secrets-enc.yaml] 
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
