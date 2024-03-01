@@ -8,7 +8,11 @@ spec:
   initContainers:
     - name: decrypt-secrets
       image: alpine:latest
-      command: ["sh", "-c", 'sops -d ../values-secrets-enc.yaml']
+      command: ["sh", "-c"]
+      args:
+        - |
+          # Desencriptar los secretos usando sops
+          sops -d --in-place ../values-secrets-enc.yaml 
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
