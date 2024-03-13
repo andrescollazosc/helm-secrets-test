@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: local-test
+spec:
+  destination:
+    name: ''
+    namespace: default
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: k8s/helm/viibe
+    repoURL: 'https://github.com/andrescollazosc/helm-secrets-test'
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values-secrets-enc.yaml
+        - values.yaml
+  sources: []
+  project: default
+  syncPolicy:
+    automated: {}
