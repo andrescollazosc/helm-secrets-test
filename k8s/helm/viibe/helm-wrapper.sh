@@ -4,7 +4,7 @@ if [ -f ${GPG_KEY} ]
 then     
     gpg --quiet --import ${GPG_KEY}
 fi
-
+printf 'This is a test'
 # helm secrets only supports a few helm commands
 if [ $1 = "template" ] || [ $1 = "install" ] || [ $1 = "upgrade" ] || [ $1 = "lint" ] || [ $1 = "diff" ]
 then 
