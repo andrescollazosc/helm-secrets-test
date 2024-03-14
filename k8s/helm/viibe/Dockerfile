@@ -9,6 +9,8 @@ ENV SOPS_PGP_FP=${SOPS_PGP_FP}
 
 USER root  
 COPY helm-wrapper.sh /usr/local/bin/
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0E98404D386FA1D9
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6ED0E7B82643E131
 RUN apt-get update && \
     apt-get install -y \
     curl \
